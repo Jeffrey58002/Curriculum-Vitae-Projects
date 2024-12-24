@@ -42,15 +42,15 @@ def create_sequences(data, input_steps=5, output_steps=1):
         y.append(data[(i + input_steps):(i + input_steps + output_steps), :])
     return np.array(X), np.array(y)
 
-# Assuming `data` is a numpy array with the YUV values
+# numpy array with the YUV values
 X, y = create_sequences(data.values, input_steps=5, output_steps=1)
 
-# Split into training and testing sets
+# Split data into training and testing sets
 train_size = int(len(X) * 0.8)
 X_train, X_test = X[:train_size], X[train_size:]
 y_train, y_test = y[:train_size], y[train_size:]
 
-# Convert your X_train, y_train, X_test, and y_test to tensors and create DataLoader for them
+# Convert  X_train, y_train, X_test, and y_test to tensors and create DataLoader for them
 train_data = TensorDataset(torch.from_numpy(X_train).float(), torch.from_numpy(y_train).float())
 test_data = TensorDataset(torch.from_numpy(X_test).float(), torch.from_numpy(y_test).float())
 
@@ -58,7 +58,7 @@ batch_size = 64
 train_dataloader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
 test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=False)
 
-MAX_LENGTH = max(len(seq) for seq in X_train)  # Replace with actual calculation based on your data
+MAX_LENGTH = max(len(seq) for seq in X_train)  
 
 class Encoder(nn.Module):
     def __init__(self, input_size, hidden_size , fc_size=128):
@@ -228,7 +228,7 @@ def main():
     epochs = 100
     print_every = 100
 
-# Initialize your model, optimizers, and other components here...
+# Initialize  model, optimizers, and other components.
     encoder = Encoder(input_size, hidden_size).to(device)
     decoder = Decoder(input_size, hidden_size, output_size).to(device)  # Ensure the input_size matches the number of features
 
