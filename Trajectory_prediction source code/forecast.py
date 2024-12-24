@@ -15,8 +15,8 @@ def process_YUV_channels(y_channel, u_channel, v_channel, hand_location):
     # Combine with hand location coordinates
     combined_data = []
     for i in range(len(hand_location)):
-        timestamp = hand_location[i][0]  # Assuming timestamp is the first element in hand_location
-        x_left, y_left, x_right, y_right = hand_location[i][1:]  # Assuming hand location coordinates follow timestamp
+        timestamp = hand_location[i][0]  # Timestamp is the first element in hand_location
+        x_left, y_left, x_right, y_right = hand_location[i][1:]  # Hand location coordinates follow timestamp
         combined_data.append([timestamp, x_left, y_left, x_right, y_right, vertical_speeds[i], horizontal_speeds[i]])
     
     return combined_data
@@ -36,9 +36,9 @@ def load_object_detection_results(csv_file):
         next(csv_reader)  # Skip header row
 
         for row in csv_reader:
-            timestamp = row[0]  # Assuming timestamp is the first column
-            left_hand_x, left_hand_y = float(row[1]), float(row[2])  # Assuming left hand coordinates are in columns 2 and 3
-            right_hand_x, right_hand_y = float(row[3]), float(row[4])  # Assuming right hand coordinates are in columns 4 and 5
+            timestamp = row[0]  # Timestamp is the first column
+            left_hand_x, left_hand_y = float(row[1]), float(row[2])  # Left hand coordinates are in columns 2 and 3
+            right_hand_x, right_hand_y = float(row[3]), float(row[4])  # Right hand coordinates are in columns 4 and 5
             object_detection_results.append((timestamp, left_hand_x, left_hand_y, right_hand_x, right_hand_y))
 
     return object_detection_results
@@ -48,7 +48,7 @@ def main(opt):
     csv_file = "C:/Users/home/Desktop/Camera_recognition/TimeForecast/hand_coordinates_20240305-225002.csv"
 
     # Load object detection results
-    object_detection_results = load_object_detection_results()  # Assuming this function loads the results into a suitable data structure
+    object_detection_results = load_object_detection_results()  # Loads the results into a suitable data structure
     
     # Read .YUV file
     y_channel, u_channel, v_channel = read_YUV_file(yuv_file_path)  # Provide path to .YUV file
@@ -56,5 +56,3 @@ def main(opt):
     # Process YUV channels and combine with hand location coordinates
     combined_data = process_YUV_channels(y_channel, u_channel, v_channel, object_detection_results)
     
-    # Further processing and training of forecasting model
-    # ...
