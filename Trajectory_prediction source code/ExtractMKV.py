@@ -15,13 +15,11 @@ if not cap.isOpened():
 while cap.isOpened():
     ret, frame = cap.read()  # Read the frame
     if ret:
-        # Convert the frame from BGR to YUV (if your video is not already in YUV format)
+        # Convert the frame from BGR to YUV (if video is not already in YUV format)
         yuv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV)
 
         # Split the YUV frame into Y, U, and V channels
         y, u, v = cv2.split(yuv_frame)
-
-        # At this point, you can process the Y, U, and V channels as per your project's requirements
 
         # Example: Show the Y channel
         cv2.imshow('Y Channel', y)
@@ -29,7 +27,5 @@ while cap.isOpened():
             break
     else:
         break
-
-# When everything done, release the video capture object
 cap.release()
 cv2.destroyAllWindows()
